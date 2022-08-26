@@ -1,0 +1,69 @@
+unit untLogin;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  Vcl.ExtCtrls, Vcl.Buttons, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Stan.Param,
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.VCLUI.Wait,
+  FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, FireDAC.Comp.UI, Data.DB,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TfrmLogin = class(TForm)
+    Image1: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    edtLogin: TEdit;
+    edtSenha: TEdit;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    conexao: TFDConnection;
+    qryLogin: TFDQuery;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
+    qryLoginusuario: TStringField;
+    qryLoginsenha: TStringField;
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmLogin: TfrmLogin;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmLogin.BitBtn1Click(Sender: TObject);
+      var vSQL: string;
+begin
+      vSQL := '';
+      vSQL := ' SELECT * FROM LOGIN '+
+              ' WHERE LOGIN = '+ QuotedStr(edtLogin.Text)+
+              '   AND SENHA = '+ QuotedStr(edtSenha.Text);
+
+      qryLogin.Close;
+      qryLogin.SQL.CommaText := vSQL;
+      qryLogin.Open;
+
+      if qryLogin.IsEmpty then
+          Application.MessageBox('Usuário ou Senha inválidos',
+          'Atenção',MB_ICONINFORMATION + MB_OK);
+end;
+
+procedure TfrmLogin.BitBtn2Click(Sender: TObject);
+begin
+      edtLogin.Clear;
+      edtSenha.Clear;
+      edtLogin.SetFocus;
+end;
+
+end.

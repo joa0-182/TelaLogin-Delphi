@@ -1,0 +1,16 @@
+program prjLogin;
+
+uses
+  Vcl.Forms,
+  untLogin in 'untLogin.pas' {frmLogin},
+  untPrincipal in 'untPrincipal.pas' {Form1};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmLogin, frmLogin);
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

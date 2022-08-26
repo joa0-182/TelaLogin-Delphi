@@ -1,0 +1,12 @@
+CREATE DATABASE IF NOT EXISTS login;
+
+Use login;
+
+CREATE TABLE IF NOT EXISTS login (
+	usuario VARCHAR(30) NOT NULL PRIMARY KEY,
+    senha 	VARCHAR(25)
+);
+
+INSERT INTO login VALUES ('Joao','123321123');
+INSERT INTO login VALUES ('Teste','teste');
+INSERT INTO login VALUE ('Teste2','12345');
